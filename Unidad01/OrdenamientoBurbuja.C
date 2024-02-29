@@ -8,7 +8,7 @@ int main()
 {
     //int tam=5;
     int Datos[]={4,22,322,14,-5,67,7,9,8};
-    int tam=sizeof(Datos)/sizeof(Datos[0]);//OBTENER EL TAMAÑO DEL VECTOR
+    int tam=sizeof(Datos)/sizeof(Datos[0]);//OBTENER EL TAMAï¿½O DEL VECTOR
     srand (time(NULL));
     for(int i=0;i<tam;i++)
     {
@@ -20,6 +20,8 @@ int main()
         printf("%d\n",Datos[i]);
     }
     Ordenar(tam,Datos);
+    printf("\n");
+    system("pause");
     return 0;
 }
 //FUNCIONES
