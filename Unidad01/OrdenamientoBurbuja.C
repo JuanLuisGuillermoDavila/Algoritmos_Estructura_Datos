@@ -1,42 +1,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-int main() {
-    int Datos[] = {4, 22, 322, 14, -5, 67, 7, 9, 8};
-    int tam = sizeof(Datos) / sizeof(Datos[0]);
-
-    // Descomenta la siguiente línea si quieres generar números aleatorios en lugar de usar los datos predefinidos
-    // srand(time(NULL));
-
-    printf("DATOS DESORDENADOS:\n");
-    for (int i = 0; i < tam; i++) {
-        printf("%d\n", Datos[i]);
+//FUNCIONES PROTOTIPO
+void Ordenar(int x, int arr[]);
+//MAIN
+int main()
+{
+    //int tam=5;
+    int Datos[]={4,22,322,14,-5,67,7,9,8};
+    int tam=sizeof(Datos)/sizeof(Datos[0]);//OBTENER EL TAMA�O DEL VECTOR
+    srand (time(NULL));
+    for(int i=0;i<tam;i++)
+    {
+        //Datos[i] = rand()%11+1;
     }
-
-    int cont = 0;
-    int comp = 0;
-
-    for (int i = 0; i < tam; i++) {
-        for (int j = 0; j < tam - 1; j++) {
-            comp += 1;
-            if (Datos[j] > Datos[j + 1]) {
-                int tmp = Datos[j + 1];
-                Datos[j + 1] = Datos[j];
-                Datos[j] = tmp;
-                cont++;
+    printf("DATOS DESORDENADOS:\n");
+    for(int i=0; i<tam; i++)
+    {
+        printf("%d\n",Datos[i]);
+    }
+    Ordenar(tam,Datos);
+    printf("\n");
+    system("pause");
+    return 0;
+}
+//FUNCIONES
+void Ordenar(int x, int arr[])
+{
+    int cont=0;
+    int comp=0;
+    for(int i=0; i<x; i++)
+    {
+        for(int j=0;j<x-1;j++)
+        {
+            comp+=1;//CUENTA COMPARACIONES
+            if(arr[j]>arr[j+1])
+            {
+                int tmp=arr[j+1];
+                arr[j+1]=arr[j];
+                arr[j]=tmp;
+                cont++;//CUENTA LOS CAMBIOS
             }
         }
         printf("");
     }
-
-    printf("\nDATOS ORDENADOS:\n");
-    for (int i = 0; i < tam; i++) {
-        printf("%d\n", Datos[i]);
+    printf("DATOS ORDENADOS:\n");
+    for(int i=0; i<x; i++)
+    {
+        printf("%d\n",arr[i]);
     }
-
-    printf("NUMERO DE CAMBIOS:\n%d\n", cont);
-    printf("NUMERO DE COMPARACIONES:\n%d\n", comp);
-
-    return 0;
+    printf("NUMERO DE CAMBIOS:\n%d",cont);
+    printf("\nNUMERO DE COMPARACIONES:\n%d",comp);
 }

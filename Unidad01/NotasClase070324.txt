@@ -1,0 +1,39 @@
+A la accion de mandar algo se le llama argumento int suma(17,r), los argumentos son "17, r"
+Se le llama de dos maneras, Valor, Reverencia.
+se requieren dos elementos, apuntador "*" y referencia "&".
+#include <stdio.h>
+int main()
+{
+    int k=16;
+    //APUNTADOR ES UNA VARIABLE, SOLO GUARDA UNA DIRECCION DE MEMORIA
+    // EL & ME PERMITE MANIPULAR UNA DIRECCION
+    int * d= &k;
+    printf("VALOR: %d\n",k);
+    printf("DIRECCION-MEMORIA: %p\n",&k);//PARA SABER LA REFERENCIA K SE USA "&"
+    printf("DIRECCION-MEMORIA: %p\n",d);//COMO ES UN APUNTADOR NO ES NECESARIO USAR &
+    printf("Lo que apunta: %d\n",*d+1);//PARA ACCEDER A LO QUE APUNTA SE USA "*"
+    k=78;
+    printf("VALOR-DIRECCION: %d\n",*d);
+    printf("-");
+    return 0;
+}
+#include <stdio.h>
+//PASAR DATOS POR REFERENCIA
+int Referencia(int *x);
+int main()
+{
+    int k=16;
+    int *d=&k;
+    Referencia(d);
+    printf("%d\n", k);
+    return 0;
+}
+int Referencia(int *x)
+{
+    printf("%d\n",*x);
+    *x=23;//ESTAMOS MODIFICANDO K, INDIRECTAMENTE ATRAVEZ DE SU DIRECCION
+    return 0;
+}
+TAREA d=d+1
+Parametros por Valor=
+Parametros por Referencia=
