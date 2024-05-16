@@ -1,0 +1,7 @@
+TAD (Tipo abstracto de dato)
+Structure/typedef/ elemento que lo componen
+ej:
+structure typedef Fecha
+{
+	
+} fecha;
