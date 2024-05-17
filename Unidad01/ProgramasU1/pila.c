@@ -42,7 +42,6 @@ struct NodoLista* insertar( struct NodoLista *posInicial, int valor)
         posNuevo->valor = valor;
         posNuevo->ptrSiguiente = NULL;
         // ASIGNAMOS EL NUEVO NODO AL ULTIMO NODO DE LA LISTA
-        posActual->ptrSiguiente = posNuevo; 
         return posInicial;
 	}
 }
