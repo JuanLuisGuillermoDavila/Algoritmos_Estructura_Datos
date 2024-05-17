@@ -11,7 +11,7 @@ void imprimirLista(struct NodoLista *posInicial);
 
 int main(int argc, char const *argv[])
 {
-	struct NodoLista *refInicial=NULL;//*refInicial es el contenedor, dentro está NULL
+	struct NodoLista *refInicial=NULL;//*refInicial ES EL CONTENEDOR, DENTRO ESTA NULL
 	refInicial=insertar(refInicial, 6);
 	refInicial=insertar(refInicial, 8);
 	refInicial=insertar(refInicial, 1);
@@ -31,17 +31,17 @@ struct NodoLista* insertar( struct NodoLista *posInicial, int valor)
 	}
 	else
 	{//CUANDO NO TIENE, BUSCAMOS EL ULTIMO ELEMENTO DE LA LISTA PARA AGRGAR EL NUEVO NODO
-		printf("Hola\n");
+		//printf("Hola\n");
 		struct NodoLista *posActual=posInicial;
 		while(posActual->ptrSiguiente != NULL)
 		{
 			posActual = posActual->ptrSiguiente;
 		}
-		 // Crear y agregar el nuevo nodo al final de la lista
+		 // CREAR Y AGREGAR EL NUEVO NODO AL LA LISTA
         struct NodoLista *posNuevo = malloc(sizeof(struct NodoLista));
         posNuevo->valor = valor;
         posNuevo->ptrSiguiente = NULL;
-        // Asignamos el nuevo nodo al último nodo de la lista
+        // ASIGNAMOS EL NUEVO NODO AL ULTIMO NODO DE LA LISTA
         posActual->ptrSiguiente = posNuevo; 
         return posInicial;
 	}
