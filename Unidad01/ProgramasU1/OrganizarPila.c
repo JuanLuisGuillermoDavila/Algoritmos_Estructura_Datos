@@ -14,7 +14,6 @@ void order(struct nodoLista *ptrInicial, int n);
 int main(int argc, char const *argv[])
 {
 	int n=8;
-	srand(time(NULL)); //Generamos número aleatorio en base al tiempo
 	struct nodoLista *box=NULL;//*box ES EL CONTENEDOR
 	for (int i = 0; i < n; ++i)
 	{
