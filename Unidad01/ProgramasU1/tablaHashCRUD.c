@@ -15,37 +15,50 @@ struct tablaHash
 	struct pila* arr[];
 };
 
-//FUNCIONES PROTOTIPO
-struct pila *create(struct pila* ptrInicial, int valor, struct tablaHash* indice, int size);
+//Funciones prototipo
+void create(int valor, struct tablaHash* indice, int size);
 int funcionHash(int valor, int size);
-void printTablaHash(struct tablaHash* tabla);
-
-//MAIN
+void read(struct tablaHash* tabla,int size);
+void update(struct tablaHash* tabla,int size, int valor, int valorNw);
+void delete(struct tablaHash* tabla, int size, int indice);
+//Main
 int main(int argc, char const *argv[])
 {
-	int size=10;//TAMAÑO DE LA TABLA
-	struct pila* box=NULL;
-	struct tablaHash* tabla = malloc(sizeof(struct tablaHash) + size * sizeof(struct pila*));
-	//tabla->arr = malloc(size * sizeof(struct pila*));//ASIGNAMOS MEMORIA AL ARRAY DE LA TABLA
+	int size=10;//size de la tabla
+    struct tablaHash* tabla = malloc(sizeof(struct tablaHash) + size * sizeof(struct pila*));
+    tabla->size = size;
 	for (int i = 0; i < size; ++i)
 	{
 		tabla->arr[i] = NULL;
-	}//END FOR
-    box = create(box, 5, tabla,size);
-    box = create(box, 15, tabla,size); // Colisión intencional con 5 si size es 10
-    box = create(box, 20, tabla,size);
-    printTablaHash(tabla);
+	}//End for
+    //Ingresamos datos a la tabla "Create"
+    create(5, tabla,size);
+    create(15, tabla,size); // Colisión intencional con 5 
+    create(20, tabla,size);
+    create(1, tabla,size);
+    //Imprimir "Read"
+    read(tabla,size);
+    //Editar "Update"
+    update(tabla,size,4,15);//Incorrecto
+    update(tabla,size,1,11);//Correcto
+    update(tabla,size,9,15);//Valor que no esta en la tabla
+    read(tabla,size);
+    // Eliminar datos en una posición específica
+    delete(tabla, size, funcionHash(19, size));
+    delete(tabla, size, funcionHash(5, size));
+    read(tabla,size);
 
+    //editar
 	return 0;
-}//END MAIN
+}//End main
 
-struct pila* create(struct pila* ptrInicial, int valor, struct tablaHash* indice, int size) {
+void create(int valor, struct tablaHash* indice, int size) {
     struct pila* nuevoNodo = malloc(sizeof(struct pila));
     if (nuevoNodo == NULL)
     {
         printf("No se pudo asignar memoria\n");
   
-    }//END IF
+    }//End if
     nuevoNodo->valor = valor;
     nuevoNodo->aux = NULL;
     
@@ -53,23 +66,22 @@ struct pila* create(struct pila* ptrInicial, int valor, struct tablaHash* indice
     if (indice->arr[pos] == NULL) 
     {
         indice->arr[pos] = nuevoNodo;
-    }//END IF 
+    }//End if
     else 
     {
         struct pila* actual = indice->arr[pos];
         while (actual->aux != NULL) {
             actual = actual->aux;
-        }//END WHILE
+        }//End while
         actual->aux = nuevoNodo;
-    }//END ELSE
-    return ptrInicial;
-}//END  
-int funcionHash(int valor, int size) {
-
+    }//End else
+}//End fn
+int funcionHash(int valor, int size)
+{
     return valor % size;
-}//END
-void printTablaHash(struct tablaHash* tabla) {
-    for (int i = 0; i < tabla->size; i++) 
+}//End fn
+void read(struct tablaHash* tabla, int size) {
+    for (int i = 0; i < size; i++) 
     {
         printf("Posicion %d: ", i);
         struct pila* actual = tabla->arr[i];
@@ -77,7 +89,58 @@ void printTablaHash(struct tablaHash* tabla) {
         {
             printf("%d -> ", actual->valor);
             actual = actual->aux;
-        }//END WHILE
+        }//End while
         printf("NULL\n");
-    }//END FOR
-}//END
+    }//End for
+}//End fn
+
+void update(struct tablaHash* tabla,int size, int valor, int valorNw)
+{
+    /*Para que la tabla hash sigan funcionando correctamente
+    es necesario poner una condicion que nos verifique que el valor que se va a editar y
+    el nuevo valor tengan el mismo modulo "%", de lo contrario si el usuario quiere buscar el valor
+    sera imposible encontrarlo en la tabla*/
+    int flag=0;
+    int indice = funcionHash(valor,size);
+    int mod = funcionHash(valorNw,size);
+    struct pila* actual = tabla->arr[indice];
+    if(indice== mod)
+    {
+        while (actual != NULL) 
+        {
+            if(actual->valor==valor)
+            {
+                actual->valor=valorNw;
+                flag=1;
+            }//End if
+            actual = actual->aux;
+        }//End while
+    }//End if
+    else
+    {
+        printf("No se pudo actualizar el valor %d por %d, porque no comparten el mismo modulo\n",valor,valorNw);
+    }//End else
+    if(flag==0)
+    {
+        printf("y %d no se encuentra en la tabla\n",valorNw);
+    }//End if
+}//End fn
+void delete(struct tablaHash* tabla, int size, int indice)
+{
+    struct pila* actual = tabla->arr[indice];
+    struct pila* temp;
+    if(tabla->arr[indice]!=NULL)
+    {
+        while (actual != NULL) {
+            temp = actual;
+            actual = actual->aux;
+            free(temp);
+        }//End while
+        tabla->arr[indice] = NULL;
+        printf("Datos en la posición %d eliminados\n", indice);
+    }//End if
+    else
+    {
+        printf("La posición %d no tiene elementos\n", indice);
+    }//End else
+}//End fn
